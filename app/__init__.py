@@ -9,6 +9,7 @@ from flask import Flask
 
 from .config import DevelopmentConfig, ProductionConfig, TestingConfig
 from .extensions import db, migrate
+from .models import User
 
 
 def create_app():
