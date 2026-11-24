@@ -1,0 +1,73 @@
+@baseUrl = http://127.0.0.1:5000
+
+### Health check
+GET {{baseUrl}}/health
+
+### Register — success (201)
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "secret12",
+  "display_name": "Alice"
+}
+
+### Register — duplicate username (409)
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "secret12"
+}
+
+### Register — missing body / not JSON (400)
+POST {{baseUrl}}/users/register
+Content-Type: text/plain
+
+not json
+
+### Register — missing username (400)
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "password": "secret12"
+}
+
+### Register — username too short (400)
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username": "ab",
+  "password": "secret12"
+}
+
+### Register — missing password (400)
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username": "bob"
+}
+
+### Register — password too short (400)
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username": "bob",
+  "password": "short"
+}
+
+### Register — display_name too long (400)
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username": "carol",
+  "password": "secret12",
+  "display_name": "this name is way too long"
+}
